@@ -22,7 +22,9 @@ const AppProvider = ({ children }) => {
     };
 
     useEffect(() => {
-        const url = `${BASE_URL}?q=${city}&units=metric&appid=${process.env.REACT_APP_API_KEY}`;
+        const url = `${BASE_URL}?q=${city}&units=metric&appid=${
+            process.env.REACT_APP_API_KEY || 'e3bd4a7b796de85c5111e7f8967e39b7'
+        }`;
         getData(url);
     }, [city, REACT_APP_API_KEY]);
 
