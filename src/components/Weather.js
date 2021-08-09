@@ -3,11 +3,16 @@ import React, { useContext } from 'react';
 
 const Weather = () => {
     const { data } = useContext(AppContext);
-    const { name, weather, main, sys } = data;
+    const {
+        name,
+        weather,
+        main: { temp, feels_like },
+        sys: { country },
+    } = data;
 
     return (
         <div className="weather-left p-30">
-            <h3 className="weather-location">{`${name}, ${sys.country}`}</h3>
+            <h3 className="weather-location">{`${name}, ${country}`}</h3>
             <p className="weather-desc">{weather[0].description}</p>
             <div className="block-img">
                 <div style={{ display: 'block', maxWidth: '100%' }}>
@@ -22,9 +27,9 @@ const Weather = () => {
                     alt="Weather Icons"
                 />
             </div>
-            <h1 className="weather-temp">{Math.round(main.temp)}&deg;C</h1>
+            <h1 className="weather-temp">{Math.round(temp)}&deg;C</h1>
             <span className="weather-feels-like">
-                Feels like {Math.round(main.feels_like)}&deg;C
+                Feels like {Math.round(feels_like)}&deg;C
             </span>
         </div>
     );

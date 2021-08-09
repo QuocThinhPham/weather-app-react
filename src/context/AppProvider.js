@@ -9,14 +9,21 @@ const AppProvider = ({ children }) => {
     const [city, setCity] = useState('Ho Chi Minh');
     const [data, setData] = useState(null);
 
+    const getData = async (url) => {
+        const response = await fetch(url);
+
+        if (response.status === 200) {
+            const responseJSON = await response.json();
+            setData(responseJSON);
+        } else if (response.status === 404) {
+            console.log('404: Not Found');
+            setData(null);
+        }
+    };
+
     useEffect(() => {
         const url = `${BASE_URL}?q=${city}&units=metric&appid=${process.env.REACT_APP_API_KEY}`;
-
-        fetch(url)
-            .then((res) => res.json())
-            .then((data) => {
-                setData(data);
-            });
+        getData(url);
     }, [city, REACT_APP_API_KEY]);
 
     return (
