@@ -1,6 +1,7 @@
 import { AppContext } from 'context/AppProvider';
 import React, { useContext, useState } from 'react';
 import { DAYS } from 'utils/constant';
+import { formatDate } from 'utils/services';
 import { convertToISOString } from 'utils/services';
 
 const TimeAndSearch = () => {
@@ -15,9 +16,9 @@ const TimeAndSearch = () => {
         <div className="time-and-search">
             <h3>
                 <span>Calculation Time:</span>
-                {`${
-                    DAYS[time.getUTCDay()]
-                }, ${time.getUTCHours()}:${time.getUTCMinutes()}`}
+                {`${DAYS[time.getUTCDay()]}, ${formatDate(
+                    time.getUTCHours()
+                )}:${formatDate(time.getUTCMinutes())}`}
             </h3>
             <input
                 value={value}
