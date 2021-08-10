@@ -158,3 +158,9 @@ body {
 .stats-card-content div p {
     font-size: 1.8rem;
 }
+
+.not-found {
+    text-align: center;
+    font-size: 2.4rem;
+    margin-bottom: 2rem;
+}

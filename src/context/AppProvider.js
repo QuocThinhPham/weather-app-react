@@ -1,4 +1,5 @@
 import Loading from 'components/Loading';
+import NotFound from 'components/NotFound';
 import React, { createContext, useEffect, useState } from 'react';
 import { BASE_URL } from 'utils/constant';
 
@@ -6,6 +7,7 @@ export const AppContext = createContext();
 
 const AppProvider = ({ children }) => {
     const { REACT_APP_API_KEY } = process.env;
+    const [isLoading, setIsLoading] = useState(true);
     const [city, setCity] = useState('Ho Chi Minh');
     const [data, setData] = useState(null);
 
@@ -16,9 +18,9 @@ const AppProvider = ({ children }) => {
             const responseJSON = await response.json();
             setData(responseJSON);
         } else if (response.status === 404) {
-            console.log('404: Not Found');
             setData(null);
         }
+        setIsLoading(false);
     };
 
     useEffect(() => {
@@ -30,7 +32,7 @@ const AppProvider = ({ children }) => {
 
     return (
         <AppContext.Provider value={{ city, setCity, data }}>
-            {data ? children : <Loading />}
+            {isLoading ? <Loading /> : data ? children : <NotFound />}
         </AppContext.Provider>
     );
 };
